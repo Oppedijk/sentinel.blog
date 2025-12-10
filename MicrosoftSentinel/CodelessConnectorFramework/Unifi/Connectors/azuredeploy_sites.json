@@ -210,10 +210,10 @@
                             "description": "All UniFi sites",
                             "query": "[concat(parameters('tableName'), '\n| project TimeGenerated, siteId, hostId, permission, isOwner\n| sort by TimeGenerated [desc]\n| take 100')]"
                         },
-                        {
-                            "description": "Sites with metadata details",
-                            "query": "[concat(parameters('tableName'), '\n| extend \n    siteName = tostring(meta.name),\n    siteDescription = tostring(meta.desc),\n    timezone = tostring(meta.timezone),\n    gatewayMac = tostring(meta.gatewayMac)\n| project TimeGenerated, siteId, siteName, siteDescription, timezone, gatewayMac\n| sort by siteName [asc]')]"
-                        },
+                        //{
+                        //    "description": "Sites with metadata details",
+                        //    "query": "[concat(parameters('tableName'), '\n| extend \n    siteName = tostring(meta.name),\n    siteDescription = tostring(meta.desc),\n    timezone = tostring(meta.timezone),\n    gatewayMac = tostring(meta.gatewayMac)\n| project TimeGenerated, siteId, siteName, siteDescription, timezone, gatewayMac\n| sort by siteName [asc]')]"
+                        //},
                         {
                             "description": "Sites by permission level",
                             "query": "[concat(parameters('tableName'), '\n| summarize SiteCount = dcount(siteId) by permission\n| sort by SiteCount [desc]')]"
