@@ -208,15 +208,15 @@
                     "sampleQueries": [
                         {
                             "description": "All UniFi sites",
-                            "query": "[concat(parameters('tableName'), '\n| project TimeGenerated, siteId, hostId, permission, isOwner\n| sort by TimeGenerated desc\n| take 100')]"
+                            "query": "[concat(parameters('tableName'), '\n| project TimeGenerated, siteId, hostId, permission, isOwner\n| sort by TimeGenerated [desc]\n| take 100')]"
                         },
                         {
                             "description": "Sites with metadata details",
-                            "query": "[concat(parameters('tableName'), '\n| extend \n    siteName = tostring(meta.name),\n    siteDescription = tostring(meta.desc),\n    timezone = tostring(meta.timezone),\n    gatewayMac = tostring(meta.gatewayMac)\n| project TimeGenerated, siteId, siteName, siteDescription, timezone, gatewayMac\n| sort by siteName asc')]"
+                            "query": "[concat(parameters('tableName'), '\n| extend \n    siteName = tostring(meta.name),\n    siteDescription = tostring(meta.desc),\n    timezone = tostring(meta.timezone),\n    gatewayMac = tostring(meta.gatewayMac)\n| project TimeGenerated, siteId, siteName, siteDescription, timezone, gatewayMac\n| sort by siteName [asc]')]"
                         },
                         {
                             "description": "Sites by permission level",
-                            "query": "[concat(parameters('tableName'), '\n| summarize SiteCount = dcount(siteId) by permission\n| sort by SiteCount desc')]"
+                            "query": "[concat(parameters('tableName'), '\n| summarize SiteCount = dcount(siteId) by permission\n| sort by SiteCount [desc]')]"
                         },
                         {
                             "description": "Owned vs shared sites",
@@ -224,19 +224,19 @@
                         },
                         {
                             "description": "Sites grouped by host",
-                            "query": "[concat(parameters('tableName'), '\n| summarize SiteCount = dcount(siteId) by hostId\n| sort by SiteCount desc')]"
+                            "query": "[concat(parameters('tableName'), '\n| summarize SiteCount = dcount(siteId) by hostId\n| sort by SiteCount [desc]')]"
                         },
                         {
                             "description": "Extract device counts from statistics",
-                            "query": "[concat(parameters('tableName'), '\n| extend \n    siteName = tostring(meta.name),\n    totalDevices = toint(siteStatistics.counts.totalDevice),\n    onlineDevices = toint(siteStatistics.counts.onlineDevice),\n    offlineDevices = toint(siteStatistics.counts.offlineDevice)\n| project TimeGenerated, siteName, totalDevices, onlineDevices, offlineDevices\n| sort by totalDevices desc')]"
+                            "query": "[concat(parameters('tableName'), '\n| extend \n    siteName = tostring(meta.name),\n    totalDevices = toint(siteStatistics.counts.totalDevice),\n    onlineDevices = toint(siteStatistics.counts.onlineDevice),\n    offlineDevices = toint(siteStatistics.counts.offlineDevice)\n| project TimeGenerated, siteName, totalDevices, onlineDevices, offlineDevices\n| sort by totalDevices [desc]')]"
                         },
                         {
                             "description": "Extract client counts from statistics",
-                            "query": "[concat(parameters('tableName'), '\n| extend \n    siteName = tostring(meta.name),\n    wiredClients = toint(siteStatistics.counts.wiredClient),\n    wifiClients = toint(siteStatistics.counts.wifiClient),\n    guestClients = toint(siteStatistics.counts.guestClient)\n| project TimeGenerated, siteName, wiredClients, wifiClients, guestClients\n| sort by (wiredClients + wifiClients) desc')]"
+                            "query": "[concat(parameters('tableName'), '\n| extend \n    siteName = tostring(meta.name),\n    wiredClients = toint(siteStatistics.counts.wiredClient),\n    wifiClients = toint(siteStatistics.counts.wifiClient),\n    guestClients = toint(siteStatistics.counts.guestClient)\n| project TimeGenerated, siteName, wiredClients, wifiClients, guestClients\n| sort by (wiredClients + wifiClients) [desc]')]"
                         },
                         {
                             "description": "Sites by timezone",
-                            "query": "[concat(parameters('tableName'), '\n| extend timezone = tostring(meta.timezone)\n| summarize SiteCount = dcount(siteId) by timezone\n| sort by SiteCount desc')]"
+                            "query": "[concat(parameters('tableName'), '\n| extend timezone = tostring(meta.timezone)\n| summarize SiteCount = dcount(siteId) by timezone\n| sort by SiteCount [desc]')]"
                         }
                     ],
                     "dataTypes": [
